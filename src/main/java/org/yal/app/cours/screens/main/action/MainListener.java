@@ -1,6 +1,9 @@
 package org.yal.app.cours.screens.main.action;
 
 import org.yal.app.cours.model.Personnage;
+import org.yal.app.cours.screens.ajout.model.AjoutModel;
+import org.yal.app.cours.screens.ajout.view.AjoutConstructeur;
+import org.yal.app.cours.screens.common.ConstructeurEcran;
 import org.yal.app.cours.screens.common.WindowsManager;
 
 import javax.swing.*;
@@ -42,7 +45,9 @@ public class MainListener implements ActionListener {
     }
 
     private void ajouterOnClick() {
-
+        final ConstructeurEcran constructeurEcran = windowsManager.get(2);
+        ((AjoutConstructeur) constructeurEcran).setModel(new AjoutModel());
+        windowsManager.ouvrirEcran(constructeurEcran);
     }
 
     private void supprimerOnClick() {

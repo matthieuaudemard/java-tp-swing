@@ -49,6 +49,7 @@ public class LoginConstructeur implements ConstructeurEcran {
                     public void changedUpdate(DocumentEvent e) {
                         updateModel();
                     }
+
                     public void updateModel() {
                         model.setLogin(loginText.getText());
                     }
