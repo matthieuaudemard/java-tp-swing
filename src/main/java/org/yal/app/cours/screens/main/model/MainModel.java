@@ -22,4 +22,12 @@ public class MainModel {
     public List<Personnage> getPersonnages() {
         return personnages;
     }
+
+    public void add(Personnage p) {
+        personnages.add(p);
+    }
+
+    public void remove(int selectedRow) {
+        personnages.remove(selectedRow);
+    }
 }

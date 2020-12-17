@@ -29,7 +29,7 @@ public class WindowsManager
   public WindowsManager()
   {
     this.window = new JFrame();
-    ecrans = new ArrayList<>(Arrays.asList(new LoginConstructeur(this), new MainConstructeur(this), new AjoutConstructeur()));
+    ecrans = new ArrayList<>(Arrays.asList(new LoginConstructeur(this), new MainConstructeur(this), new AjoutConstructeur(this)));
     ecranIterator = ecrans.iterator();
     window.getContentPane().setLayout(new TableLayout(new double[][] {{10,TableLayoutConstants.FILL,10} ,{.33, TableLayoutConstants.PREFERRED, .33}}));
   }

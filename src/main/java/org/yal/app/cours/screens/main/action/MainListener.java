@@ -5,6 +5,7 @@ import org.yal.app.cours.screens.ajout.model.AjoutModel;
 import org.yal.app.cours.screens.ajout.view.AjoutConstructeur;
 import org.yal.app.cours.screens.common.ConstructeurEcran;
 import org.yal.app.cours.screens.common.WindowsManager;
+import org.yal.app.cours.screens.main.view.MainConstructeur;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -51,7 +52,8 @@ public class MainListener implements ActionListener {
     }
 
     private void supprimerOnClick() {
-
+        final MainConstructeur constructeurEcran = (MainConstructeur) windowsManager.get(1);
+        constructeurEcran.removeCurrentRow();
     }
 
     @Override

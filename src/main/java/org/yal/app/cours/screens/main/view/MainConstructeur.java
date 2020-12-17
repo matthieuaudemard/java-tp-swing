@@ -14,10 +14,17 @@ public class MainConstructeur implements ConstructeurEcran {
     private final MainListener listener;
     private final MainModel model = new MainModel();
     private final WindowsManager windowsManager;
+    private final TableModel tableModel;
+    private JTable jTable;
 
     public MainConstructeur(WindowsManager windowsManager) {
         this.windowsManager = windowsManager;
         this.listener = new MainListener(model.getPersonnages(), this.windowsManager);
+        this.tableModel = new TableModel(model.getPersonnages());
+    }
+
+    public MainModel getModel() {
+        return model;
     }
 
     @Override
@@ -31,13 +38,14 @@ public class MainConstructeur implements ConstructeurEcran {
     }
 
     private JScrollPane createTablePanel() {
-        return new JScrollPane(new JTable(new TableModel(model.getPersonnages())));
+        jTable = new JTable(tableModel);
+        return new JScrollPane(jTable);
     }
 
     private JPanel createMenuBar() {
         JPanel menuBar = new JPanel();
         JButton ajouterButton = new JButton("ajouter");
-        JButton supprimerButton = new JButton("suprimer");
+        JButton supprimerButton = new JButton("supprimer");
         JButton sauvegarderButton = new JButton("sauvegarder");
         menuBar.add(ajouterButton);
         menuBar.add(supprimerButton);
@@ -46,5 +54,14 @@ public class MainConstructeur implements ConstructeurEcran {
         supprimerButton.addActionListener(listener);
         sauvegarderButton.addActionListener(listener);
         return menuBar;
+    }
+
+    public void refreshModel() {
+        tableModel.fireTableDataChanged();
+    }
+
+    public void removeCurrentRow() {
+        model.remove(jTable.getSelectedRow());
+        tableModel.fireTableDataChanged();
     }
 }
