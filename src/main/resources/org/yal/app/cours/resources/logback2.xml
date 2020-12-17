@@ -1,0 +1,76 @@
+<configuration>
+  <!-- <property name="contextName" value="${artifactId}" /> -->
+  <property name="contextName" value="yal-app-java-perfectionnement" />
+  <property name="CONTEXT_NAME" value="yal-app-java-perfectionnement" />
+  
+  <appender name="fichier" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <if condition='isDefined("LOG_PATH")'>
+      <then>
+        <file>${LOG_PATH}/${CONTEXT_NAME}.log</file>
+      </then>
+      <else>
+        <file>${CONTEXT_NAME}.log</file>
+      </else>
+    </if>
+
+    <append>true</append>
+    
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <if condition='isDefined("LOG_PATH")'>
+        <then>
+          <fileNamePattern>${LOG_PATH}/${CONTEXT_NAME}.%d{yyyyMMdd}.%i.log</fileNamePattern>
+        </then>
+        <else>
+          <fileNamePattern>${CONTEXT_NAME}.%d{yyyyMMdd}.%i.log</fileNamePattern>
+        </else>
+      </if>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>100MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+
+    <encoder>
+      <pattern>%date{yyyyMMdd-HH:mm:ss-SSS} %contextName %-5level %logger{0}.%method:%line - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  
+  <logger name="com.cecurity.cfec.web" level="DEBUG" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+  <logger name="com.cecurity.app" level="DEBUG" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+  <logger name="org.yal" level="DEBUG" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+  <logger name="org.yal.lib" level="DEBUG" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+  <logger name="org.yal.app" level="INFO" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+  <logger name="org.apache.http" level="WARN" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+
+  <logger name="org.yal.lib" level="DEBUG" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+  <logger name="org.yal.app" level="INFO" additivity="false">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </logger>
+  
+  <root level="ERROR">
+    <appender-ref ref="console" />
+    <appender-ref ref="fichier" />
+  </root>
+</configuration>

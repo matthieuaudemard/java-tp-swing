@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password"></property>
+    <property name="hibernate.connection.url">jdbc:postgresql://ebichudev.yal.org:5432/cours</property>
+    
+    <property name="hibernate.connection.autocommit">false</property> 
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.jdbc.batch_size">30</property>
+    <!--<property name="hibernate.jdbc.batch_size">0</property>-->
+    
+    
+    <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+    <property name="hibernate.c3p0.minPoolSize">15</property>
+    <property name="hibernate.c3p0.maxPoolSize">50</property>
+    <property name="hibernate.c3p0.maxStatements">250</property>
+    <property name="hibernate.c3p0.maxIdleTime">150</property>
+    
+    <!-- mapping files -->
+   <mapping class="org.yal.app.cours.hibernate.model.annoted.Projet"/>
+   <mapping class="org.yal.app.cours.hibernate.model.annoted.Adresse"/>
+   <mapping class="org.yal.app.cours.hibernate.model.annoted.Facture"/>
+   <mapping class="org.yal.app.cours.hibernate.model.annoted.Client"/>
+<!--     
+ -->
+  </session-factory>
+</hibernate-configuration>

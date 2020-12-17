@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+  <class name="org.yal.app.cours.model.Client" table="client" >
+    <id name="id" column="id" type="java.lang.Long">
+        <generator class="increment" />
+        <!--<generator class="native"/>-->
+    </id>
+    
+    <property name="nom"/>
+    <property name="prenom"/>
+    <property name="civilite"/>
+    
+    <many-to-one name="adresse" column="fk_adresse_id" unique="true" />
+    
+    <set name="factures" inverse="true">
+      <key column="id" />
+      <one-to-many class="org.yal.app.cours.model.Facture" />
+    </set>
+    
+    <set name="projets"  table="tj_client_projet" inverse="false" lazy="true" fetch="select" cascade="all">
+      <key column="client_id" />
+      <many-to-many entity-name="org.yal.app.cours.model.Personnage" column="projet_id" />
+    </set>
+  
+  </class>
+   
+  <class name="org.yal.app.cours.model.Adresse" table="adresse" >
+    <id name="id" column="id" type="java.lang.Long">
+        <generator class="increment"/>
+        <!--<generator class="native"/>-->
+    </id>
+    
+    <property name="codePostal" column="code_postal"/>
+    <property name="rue"/>
+    <property name="ville"/>
+    <property name="pays"/>
+  </class>   
+  
+  <class name="org.yal.app.cours.model.Facture" table="facture" >
+    <id name="id" column="id" type="java.lang.Long">
+        <generator class="increment"/>
+        <!--<generator class="native"/>-->
+    </id>
+    
+    <property name="montant"/>
+    <property name="tva"/>
+    <many-to-one name="client" column="fk_client_id" />
+    
+  </class>
+  
+  <class name="org.yal.app.cours.model.Personnage" table="projet" >
+    <id name="id" column="id" type="java.lang.Long">
+        <generator class="increment"/>
+        <!--<generator class="native"/>-->
+    </id>
+    
+    <property name="nom"/>
+    <property name="importance"/>
+    
+    <set name="clients" table="tj_client_projet">
+      <key column="projet_id" />
+      <many-to-many entity-name="org.yal.app.cours.model.Client" column="client_id" />
+    </set>
+  </class>
+  
+  
+</hibernate-mapping>

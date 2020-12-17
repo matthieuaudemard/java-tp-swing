@@ -1,0 +1,79 @@
+<configuration scan="true" scanPeriod="5000">
+
+  <property name="contextName" value="yal-app-nntp" />
+  <!-- -->
+  <property name="LOG_PATH" value="D:/dvp/projets/nntp/logs" />
+  
+  <contextName>${contextName}</contextName>
+  
+  <appender name="syncFichier" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_PATH}/${CONTEXT_NAME}.log</file>
+    <append>true</append>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_PATH}/${CONTEXT_NAME}.%d{yyyyMMdd}.%i.log</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>20MB</maxFileSize>
+    </timeBasedFileNamingAndTriggeringPolicy>
+    <maxHistory>20</maxHistory>
+    </rollingPolicy>
+
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%date{"yyyyMMdd' 'HHmmss','SSS' 'XX"} %contextName [%thread] %-5level %logger{60}.%method:%line - %msg%n%ex{full}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="syncConsole" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%date{"yyyyMMdd' 'HHmmss','SSS' 'XX"} %contextName [%thread] %-5level %logger{60}.%method:%line - %msg%n%ex{full}</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="console" class="ch.qos.logback.classic.AsyncAppender">
+    <discardingThreshold>0</discardingThreshold>
+    <includeCallerData>true</includeCallerData>
+    <neverBlock>true</neverBlock>
+    <appender-ref ref="syncConsole" />
+  </appender>
+  
+  <appender name="fichier" class="ch.qos.logback.classic.AsyncAppender">
+    <discardingThreshold>0</discardingThreshold>
+    <includeCallerData>true</includeCallerData>
+    <neverBlock>true</neverBlock>
+    <appender-ref ref="syncFichier" />
+  </appender>
+  
+  <logger name="org.apache.http" level="INFO" additivity="false">
+    <appender-ref ref="fichier" />
+    <appender-ref ref="console" /> 
+    <!-- 
+    -->
+  </logger>
+
+  <logger name="org.yal.app" level="DEBUG" additivity="false">
+    <appender-ref ref="fichier" />
+    <appender-ref ref="console" />
+  </logger>
+
+  <logger name="org.yal.lib" level="DEBUG" additivity="false">
+    <appender-ref ref="fichier" />
+    <appender-ref ref="console" />
+    <!--
+    -->
+  </logger>
+  <logger name="org.yal.lib.bibliog" level="INFO" additivity="false">
+    <appender-ref ref="fichier" />
+    <appender-ref ref="console" />
+    <!--
+    -->
+  </logger>
+
+  <root level="INFO">
+    <appender-ref ref="fichier" />
+    <appender-ref ref="console" />
+    <!--
+    -->
+  </root>
+</configuration>
